@@ -10,7 +10,7 @@
 </head>
 <body>
 	<%
-		 String userID = null;
+		String userID = null;
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
 		}
@@ -30,7 +30,6 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="main">메인</a></li>
 				<li><a href="list">게시판</a></li> 
-				<li><a href="logout">로그인</a></li> 
 			</ul>
 			<%
 				if(userID == null){
@@ -45,7 +44,7 @@
 							<li><a href="join">회원가입</a></li>
 						</ul>
 					</li>
-				</ul>
+				</ul>	
 			<%
 				} else {
 			%>	
@@ -64,6 +63,7 @@
 			%>
 		</div>
 	</nav>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="../js/bootstrap.js"></script>
 </body>
 </html>
