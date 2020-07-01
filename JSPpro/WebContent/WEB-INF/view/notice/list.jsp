@@ -140,7 +140,7 @@
 					
 				</div>
 			</div>
-			<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			<a href="write" class="btn btn-primary pull-right">글쓰기</a>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="../js/bootstrap.js"></script>

@@ -100,4 +100,80 @@ public class BoardService {
 		
 		return count;
 	}
+	
+	public int insertNotice(Board board) {
+		int result = 0;
+		
+		String sql = "INSERT INTO BOARD(TITLE, WRITER_ID, CONTENT, FILES) VALUES(?,?,?,?)";
+		
+		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url,"newlec","snrntka12");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, board.getTitle());
+			st.setString(2, board.getWriterId());
+			st.setString(3, board.getContent());
+			st.setString(4, board.getFiles());
+			
+			result = st.executeUpdate();
+			
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public Board getBoard(int id) {
+		Board board = null;
+		
+		String sql = "SELECT * FROM BOARD WHERE ID=?";
+		
+		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url,"newlec","snrntka12");
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			ResultSet rs = st.executeQuery();
+			
+			if(rs.next()){	
+				int nid = rs.getInt("ID");
+				String title = rs.getString("TITLE");
+				Date regdate =rs.getDate("REGDATE");
+				String writerId =rs.getString("WRITER_ID");
+				String files =rs.getString("FILES");
+				String content =rs.getString("CONTENT");
+				boolean pub = rs.getBoolean("PUB");
+				
+				board = new Board(
+						nid,
+						title,
+						regdate,
+						writerId,
+						files,
+						content,
+						pub
+					);
+			}
+		    rs.close();
+			st.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return board;
+	}
 }
