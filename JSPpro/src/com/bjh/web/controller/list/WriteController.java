@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.bjh.web.controller.entity.Board;
@@ -26,12 +28,20 @@ import com.bjh.web.controller.service.BoardService;
 public class WriteController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/view/notice/write.jsp").forward(req, res);
+		HttpSession session = req.getSession();
+		String name = (String)session.getAttribute("userID");
+		if(name == null) {
+			res.sendRedirect("login");
+		}
+		else
+			req.getRequestDispatcher("/WEB-INF/view/notice/write.jsp").forward(req, res);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
+		String username = req.getParameter("username");
+		String open = req.getParameter("open");
 		
 		Part filePart = req.getPart("file");
 		String fileName = filePart.getSubmittedFileName();
@@ -49,11 +59,16 @@ public class WriteController extends HttpServlet{
 		fos.close();
 		fis.close();
 		
+		boolean pub = false;
+		if(open != null)
+			pub = true;
+		
 		Board board = new Board();
 		board.setTitle(title);
 		board.setContent(content);
-		board.setWriterId("BJH");
+		board.setWriterId(username);
 		board.setFiles(fileName);
+		board.setPub(pub);
 		
 		BoardService service = new BoardService();
 		int result = service.insertNotice(board);

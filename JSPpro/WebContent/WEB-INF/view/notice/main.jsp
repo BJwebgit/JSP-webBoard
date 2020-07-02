@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +53,7 @@
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">회원관리<span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<li><a href="pwdchange">비밀번호 변경</a></li>
 							<li><a href="logout">로그아웃</a></li>
 						</ul>
 					</li>

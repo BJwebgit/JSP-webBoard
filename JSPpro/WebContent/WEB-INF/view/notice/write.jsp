@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +24,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="main.jsp" class="navbar-brand">JSP 게시판 웹 사이트</a>
+			<a href="main" class="navbar-brand">JSP 게시판 웹 사이트</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
@@ -41,8 +40,8 @@
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">접속하기<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="login.jsp">로그인</a></li>
-							<li><a href="join.jsp">회원가입</a></li>
+							<li><a href="login">로그인</a></li>
+							<li><a href="join">회원가입</a></li>
 						</ul>
 					</li>
 				</ul>	
@@ -55,7 +54,8 @@
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">회원관리<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="logoutAction.jsp">로그아웃</a></li>
+							<li><a href="pwdchange">비밀번호 변경</a></li>
+							<li><a href="logout">로그아웃</a></li>
 						</ul>
 					</li>
 				</ul>	
@@ -76,6 +76,7 @@
 					<tbody>
 						<tr>
 							<th>제목</th>
+							<input type="hidden" name="username" value="<%=userID%>"/>
 							<td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50"/></td>
 						</tr>
 						<tr>
@@ -86,6 +87,9 @@
 							<th>내용</th>
 							<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height: 350px;"></textarea></td>
 						</tr>
+						<tr>
+                            <td colspan="4"><input type="checkbox" id="open" name="open" value="true"><label for="open">공개</label> </td>
+                        </tr>
 					</tbody>
 				</table>
 				<input type="submit" class="btn btn-primary pull-right" value="글쓰기"/>
