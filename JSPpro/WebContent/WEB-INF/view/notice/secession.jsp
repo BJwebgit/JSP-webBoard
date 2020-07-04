@@ -43,16 +43,13 @@
 		<div class="col-lg-4"></div>
 		<div class="col-lg-4">
 			<div class="jumbotron" style="padding-top: 20px">
-				<form action="pwdchange" method="post">
-					<h3 style="text-align: center">비밀번호 변경</h3>
+				<form action="secession" method="post">
+					<h3 style="text-align: center">회 원 탈 퇴</h3>
 					<div class="form-group">
-						<input type="password" class="form-control" placeholder="현재비밀번호" name="userPassword" maxlength="20" />
+						<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20" />
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" placeholder="새 비밀번호" name="nextPassword" maxlength="20" />
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="새 비밀번호 확인" name="checkPassword" maxlength="20" />
+						<input type="password" class="form-control" placeholder="비밀번호 확인" name="checkPassword" maxlength="20" />
 					</div>
 					<input type="submit" class="btn btn-primary form-control" value="확 인" />
 				</form>

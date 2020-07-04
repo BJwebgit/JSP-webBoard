@@ -15,4 +15,3 @@ public class ListController extends HttpServlet{
 		req.getRequestDispatcher("/WEB-INF/view/notice/main.jsp").forward(req, res);
 	}
 }
-
