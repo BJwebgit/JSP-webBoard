@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width", initial-scale="1">
-<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap.css">
 <title>JSP 게시판</title>
 </head>
 <body>
@@ -31,8 +27,8 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main">메인</a></li>
-				<li class="active"><a href="list">게시판</a></li> 
+				<li class="active"><a href="a-main">메인</a></li>
+				<li><a href="a-list">게시판</a></li> 
 			</ul>
 			<%
 				if(userID == null){
@@ -68,50 +64,7 @@
 			%>
 		</div>
 	</nav>
-	<div class="container">
-		<div class="row">
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<thead>
-					<tr>
-						<th colspan="3" style="background-color: #eeeeee; text-align: center;">글보기</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td style="width: 20%">글 제목</td>
-						<td colspan="2">${n.title }</td>
-					</tr>
-					<tr>
-						<td>작성자</td>
-						<td colspan="2">${n.writerId }</td>
-					</tr>
-					<tr>
-						<td>작성일자</td>
-						<td colspan="2"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${n.regdate }"/></td>
-					</tr>
-					<tr>
-						<td>첨부파일</td>
-						<td colspan="2" style="text-align:left; text-indent:10px">
-							<a download href="/upload/${n.files}" style="${style}">${fn:toUpperCase(n.files)}</a>
-						</td>
-					</tr>
-					<tr>
-						<td>글 내용</td>
-						<td colspan="2" style="min-height: 200px; text-align: left;">${n.content }</td>
-					</tr>
-				</tbody>
-			</table>
-			<c:if test="${n.writerId == userID }">
-				<a href="list" class="btn btn-primary">목록</a>
-				<a href="update-board?id=${n.id }" class="btn btn-primary">수정</a>
-				<a href="delete-board?id=${n.id }" class="btn btn-primary" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
-			</c:if>
-			<c:if test="${n.writerId != userID }">
-				<a href="list" class="btn btn-primary">목록</a>
-			</c:if>
-		</div>
-	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="../js/bootstrap.js"></script>
+	<script src="/js/bootstrap.js"></script>
 </body>
 </html>

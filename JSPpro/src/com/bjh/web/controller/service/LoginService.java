@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class LoginService {
 	public int login(String userID, String userPassword) {
-		int result = 0;
 		String sql = "SELECT userPassword FROM USER1 WHERE USERID=?";
 		
 		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
@@ -21,9 +20,9 @@ public class LoginService {
 			ResultSet rs = st.executeQuery();
 			if(rs.next()) {
 				if(rs.getString(1).equals(userPassword))
-					result = 1;
+					return 1;
 				else
-					result = 0;
+					return 0;
 			}
 			st.close();
 			con.close();
@@ -34,6 +33,6 @@ public class LoginService {
 			e.printStackTrace();
 		}
 		
-		return result;
+		return -1;
 	}
 }

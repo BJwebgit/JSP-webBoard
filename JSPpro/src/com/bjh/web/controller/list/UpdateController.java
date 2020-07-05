@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,30 +18,34 @@ import com.bjh.web.controller.entity.Board;
 import com.bjh.web.controller.service.BoardService;
 
 @MultipartConfig(
-	fileSizeThreshold = 1024*1024,
-	maxFileSize = 1024*1024*50,
-	maxRequestSize = 1024*1024*50*5
-)
+		fileSizeThreshold = 1024*1024,
+		maxFileSize = 1024*1024*50,
+		maxRequestSize = 1024*1024*50*5
+	)
 
-@WebServlet("/notice/write")
-public class WriteController extends HttpServlet{
+@WebServlet("/notice/update-board")
+public class UpdateController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		String name = (String)session.getAttribute("userID");
-		if(name == null) {
-			res.sendRedirect("login");
-		}
-		else
-			req.getRequestDispatcher("/WEB-INF/view/notice/write.jsp").forward(req, res);
+		int id = Integer.parseInt(req.getParameter("id"));
+		
+		BoardService service = new BoardService();
+		Board board = service.getBoard(id);
+		req.setAttribute("n", board);
+		req.setAttribute("id", id);
+		
+		req.getRequestDispatcher("/WEB-INF/view/notice/update-board.jsp").forward(req, res);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		HttpSession session = req.getSession();
+		
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
-		String username = req.getParameter("username");
 		String open = req.getParameter("open");
-		
+		String username = (String)session.getAttribute("userID");
+
 		Part filePart = req.getPart("file");
 		String fileName = filePart.getSubmittedFileName();
 		InputStream fis =  filePart.getInputStream();
@@ -71,8 +74,8 @@ public class WriteController extends HttpServlet{
 		board.setPub(pub);
 		
 		BoardService service = new BoardService();
-		int result = service.insertBoard(board);
+		int result = service.updateBoard(board, id);
 		
-		res.sendRedirect("list");
+		res.sendRedirect("/notice/list");
 	}
 }

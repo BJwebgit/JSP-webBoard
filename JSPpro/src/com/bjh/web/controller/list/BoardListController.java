@@ -36,8 +36,8 @@ public class BoardListController extends HttpServlet{
 		}
 		
 		BoardService service = new BoardService();
-		List<Board> list = service.getNoticePubList(field, query, page);
-		int count = service.getNoticeCount(field, query);
+		List<Board> list = service.getBoardPubList(field, query, page);
+		int count = service.getBoardCount(field, query);
 		
 		req.setAttribute("list", list);
 		req.setAttribute("count", count);

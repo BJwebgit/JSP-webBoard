@@ -35,7 +35,7 @@ public class JoinController extends HttpServlet{
 		JoinService service = new JoinService();
 		int result = service.insertJoin(join);
 		System.out.println(result);
-		res.sendRedirect("login");
+		res.sendRedirect("/notice/login");
 		
 	}
 }

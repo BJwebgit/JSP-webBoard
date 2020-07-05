@@ -6754,4 +6754,7 @@ button.close {
     display: none !important;
   }
 }
+.cmd-margin {
+	margin-left : 10px;
+}
 /*# sourceMappingURL=bootstrap.css.map */
