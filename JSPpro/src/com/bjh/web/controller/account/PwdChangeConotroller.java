@@ -16,6 +16,10 @@ import com.bjh.web.controller.service.BoardService;
 public class PwdChangeConotroller extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		String userID = (String)session.getAttribute("userID");
+		
+		req.setAttribute("n", userID);
 		req.getRequestDispatcher("/WEB-INF/view/notice/pwdchange.jsp").forward(req, res);
 	}
 	@Override

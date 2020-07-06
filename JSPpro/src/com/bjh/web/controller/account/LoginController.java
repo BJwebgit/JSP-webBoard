@@ -29,7 +29,10 @@ public class LoginController extends HttpServlet{
 		int result = service.login(userID, userPassword);
 		if(result == 1) {
 			session.setAttribute("userID", userID);
-			res.sendRedirect("main");
+			if(session.getAttribute("userID").equals("firstID"))
+				res.sendRedirect("/admin/notice/a-main");
+			else
+				res.sendRedirect("main");
 		}
 		else if(result == 0){
 			res.setContentType("text/html; charset=UTF-8");

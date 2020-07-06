@@ -29,15 +29,26 @@ public class WriteController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		String name = (String)session.getAttribute("userID");
-		if(name == null) {
+		String userID = (String)session.getAttribute("userID");
+		if(userID == null) {
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter script = res.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인 후 이용가능합니다')");
+			script.println("location.href = 'login'");
+			script.println("</script>");
+			script.flush();
 			res.sendRedirect("login");
 		}
 		else
+			req.setAttribute("n", userID);
 			req.getRequestDispatcher("/WEB-INF/view/notice/write.jsp").forward(req, res);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		String userID = (String)session.getAttribute("userID");
+		
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 		String username = req.getParameter("username");
@@ -73,6 +84,9 @@ public class WriteController extends HttpServlet{
 		BoardService service = new BoardService();
 		int result = service.insertBoard(board);
 		
-		res.sendRedirect("list");
+		if(userID.equals("firstID"))
+			res.sendRedirect("/admin/notice/a-list");
+		else
+			res.sendRedirect("list");
 	}
 }

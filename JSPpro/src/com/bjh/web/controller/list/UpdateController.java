@@ -76,6 +76,9 @@ public class UpdateController extends HttpServlet{
 		BoardService service = new BoardService();
 		int result = service.updateBoard(board, id);
 		
-		res.sendRedirect("/notice/list");
+		if(username.equals("firstID"))
+			res.sendRedirect("/admin/notice/a-list");
+		else
+			res.sendRedirect("list");
 	}
 }

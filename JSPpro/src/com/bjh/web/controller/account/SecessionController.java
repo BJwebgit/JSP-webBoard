@@ -16,6 +16,10 @@ import com.bjh.web.controller.service.SecessionService;
 public class SecessionController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		String userID = (String)session.getAttribute("userID");
+		
+		req.setAttribute("n", userID);
 		req.getRequestDispatcher("/WEB-INF/view/notice/secession.jsp").forward(req, res);
 	}
 	@Override

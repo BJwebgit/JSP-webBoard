@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +10,6 @@
 <title>JSP 게시판</title>
 </head>
 <body>
-	<%
-		String userID = null;
-		if(session.getAttribute("userID") != null){
-			userID = (String) session.getAttribute("userID");
-		}
-	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -24,45 +19,36 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="main" class="navbar-brand">JSP 게시판 웹 사이트</a>
+			<c:if test="${n.equals('firstID')}">
+				<a href="/admin/notice/a-main" class="navbar-brand">JSP 게시판 웹 사이트</a>
+			</c:if>
+			<c:if test="${!n.equals('firstID')}">
+				<a href="main" class="navbar-brand">JSP 게시판 웹 사이트</a>
+			</c:if>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main">메인</a></li>
-				<li class="active"><a href="list">게시판</a></li> 
+				<c:if test="${n.equals('firstID')}">
+					<li><a href="/admin/notice/a-main">메인</a></li>
+					<li class="active"><a href="/admin/notice/a-list">게시판</a></li> 
+				</c:if>
+				<c:if test="${!n.equals('firstID')}">
+					<li><a href="main">메인</a></li>
+					<li class="active"><a href="list">게시판</a></li> 
+				</c:if>
 			</ul>
-			<%
-				if(userID == null){
-			%>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">접속하기<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="login">로그인</a></li>
-							<li><a href="join">회원가입</a></li>
-						</ul>
-					</li>
-				</ul>	
-			<%
-				} else {
-			%>	
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">회원관리<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="pwdchange">비밀번호 변경</a></li>
-							<li><a href="secession">회원탈퇴</a></li>
-							<li><a href="logout">로그아웃</a></li>
-						</ul>
-					</li>
-				</ul>	
-			<%
-				}
-			%>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">회원관리<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="pwdchange">비밀번호 변경</a></li>
+						<li><a href="secession">회원탈퇴</a></li>
+						<li><a href="logout">로그아웃</a></li>
+					</ul>
+				</li>
+			</ul>	
 		</div>
 	</nav>
 	<div class="container">
@@ -77,7 +63,7 @@
 					<tbody>
 						<tr>
 							<th>제목</th>
-							<input type="hidden" name="username" value="<%=userID%>"/>
+							<input type="hidden" name="username" value="${n}"/>
 							<td><input type="text" class="form-control" placeholder="글 제목" name="title" maxlength="50"/></td>
 						</tr>
 						<tr>

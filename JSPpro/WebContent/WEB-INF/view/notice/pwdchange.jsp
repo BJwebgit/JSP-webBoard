@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +19,24 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="main" class="navbar-brand">JSP 게시판 웹 사이트</a>
+			<c:if test="${n.equals('firstID')}">
+				<a href="/admin/notice/a-main" class="navbar-brand">JSP 게시판 웹 사이트</a>
+			</c:if>
+			<c:if test="${!n.equals('firstID')}">
+				<a href="main" class="navbar-brand">JSP 게시판 웹 사이트</a>
+			</c:if>
+			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main">메인</a></li>
-				<li><a href="list">게시판</a></li> 
+				<c:if test="${n.equals('firstID')}">
+					<li><a href="/admin/notice/a-main">메인</a></li>
+					<li><a href="/admin/notice/a-list">게시판</a></li> 
+				</c:if>
+				<c:if test="${!n.equals('firstID')}">
+					<li><a href="main">메인</a></li>
+					<li><a href="list">게시판</a></li> 
+				</c:if>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
