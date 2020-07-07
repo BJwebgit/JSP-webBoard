@@ -38,11 +38,11 @@ public class WriteController extends HttpServlet{
 			script.println("location.href = 'login'");
 			script.println("</script>");
 			script.flush();
-			res.sendRedirect("login");
 		}
-		else
+		else {
 			req.setAttribute("n", userID);
 			req.getRequestDispatcher("/WEB-INF/view/notice/write.jsp").forward(req, res);
+		}
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bjh.web.controller.entity.Board;
 import com.bjh.web.controller.service.BoardService;
@@ -16,6 +17,9 @@ import com.bjh.web.controller.service.BoardService;
 public class BoardListController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		String userID = (String)session.getAttribute("userID");
+				
 		String field_ = req.getParameter("f");
 		String query_ = req.getParameter("q");
 		String page_ = req.getParameter("p");
@@ -41,6 +45,7 @@ public class BoardListController extends HttpServlet{
 		
 		req.setAttribute("list", list);
 		req.setAttribute("count", count);
+		req.setAttribute("userID", userID);
 		
 		req.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(req, res);
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +9,6 @@
 <title>JSP 게시판</title>
 </head>
 <body>
-	<%
-		String userID = null;
-		if(session.getAttribute("userID") != null){
-			userID = (String) session.getAttribute("userID");
-		}
-	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -30,9 +25,7 @@
 				<li class="active"><a href="main">메인</a></li>
 				<li><a href="list">게시판</a></li> 
 			</ul>
-			<%
-				if(userID == null){
-			%>
+			<c:if test="${userID == null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle"
@@ -44,9 +37,8 @@
 						</ul>
 					</li>
 				</ul>	
-			<%
-				} else {
-			%>	
+			</c:if>
+			<c:if test="${userID != null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle"
@@ -59,9 +51,7 @@
 						</ul>
 					</li>
 				</ul>	
-			<%
-				}
-			%>
+			</c:if>
 		</div>
 	</nav>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

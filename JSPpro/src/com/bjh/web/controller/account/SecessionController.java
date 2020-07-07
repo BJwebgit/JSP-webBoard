@@ -33,6 +33,7 @@ public class SecessionController extends HttpServlet {
 		if(userPassword.equals(checkPassword)) {
 			SecessionService service = new SecessionService();
 			int result = service.Secession(userID);
+			session.invalidate();
 			res.sendRedirect("main");
 		}
 		else {

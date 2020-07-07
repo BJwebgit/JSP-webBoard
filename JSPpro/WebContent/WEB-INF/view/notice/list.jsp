@@ -12,12 +12,6 @@
 <title>JSP 게시판</title>
 </head>
 <body>
-	<%
-		String userID = null;
-		if(session.getAttribute("userID") != null){
-			userID = (String)session.getAttribute("userID");
-		}
-	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -34,9 +28,7 @@
 				<li><a href="main">메인</a></li>
 				<li class="active"><a href="list">게시판</a></li> 
 			</ul>
-			<%
-				if(userID == null){
-			%>
+			<c:if test="${userID == null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle"
@@ -48,9 +40,8 @@
 						</ul>
 					</li>
 				</ul>	
-			<%
-				} else {
-			%>	
+			</c:if>
+			<c:if test="${userID != null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle"
@@ -63,9 +54,7 @@
 						</ul>
 					</li>
 				</ul>	
-			<%
-				}
-			%>
+			</c:if>
 		</div>
 	</nav>
 	<div class="container">

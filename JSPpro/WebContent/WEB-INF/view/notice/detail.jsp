@@ -12,12 +12,6 @@
 <title>JSP 게시판</title>
 </head>
 <body>
-	<%
-		String userID = null;
-		if(session.getAttribute("userID") != null){
-			userID = (String) session.getAttribute("userID");
-		}
-	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -34,9 +28,7 @@
 				<li><a href="main">메인</a></li>
 				<li class="active"><a href="list">게시판</a></li> 
 			</ul>
-			<%
-				if(userID == null){
-			%>
+			<c:if test="${userID == null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle"
@@ -48,9 +40,8 @@
 						</ul>
 					</li>
 				</ul>	
-			<%
-				} else {
-			%>	
+			</c:if>
+			<c:if test="${userID != null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle"
@@ -63,9 +54,7 @@
 						</ul>
 					</li>
 				</ul>	
-			<%
-				}
-			%>
+			</c:if>
 		</div>
 	</nav>
 	<div class="container">
@@ -110,6 +99,43 @@
 				<a href="list" class="btn btn-primary">목록</a>
 			</c:if>
 		</div>
+	</div>
+	<p></p>
+	<div class="container">
+		<form action="detail" method="post">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<thead>
+					<tr>
+						<th colspan="2" style="background-color: #eeeeee; text-align: center;">댓 글</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="vertical-align:middle;">댓글 내용</td>
+						<input type="hidden" name="id" value="${id}"/>
+						<td><input type="text" class="form-control" placeholder="댓글을 입력하세요" name="comment" maxlength="50"/></td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="submit" class="btn btn-primary pull-right" value="등록"/>
+		</form>
+	</div>
+	<p></p>
+	<div class="container">
+		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+		</thead>
+		<tbody>
+			<c:forEach var="n" items="${list}">
+			<tr>
+				<td style="vertical-align:middle;">${n.writerId }</td>
+				<td><input type="text" class="form-control" value="${n.cmt }" readonly /></td>
+				<c:if test="${n.writerId == userID }">
+					<td style="width: 70px;"><a href="/notice/cmtdelete-board?cmtid=${n.id }&id=${id}" class="btn btn-primary pull-right" onclick="return confirm('삭제하시겠습니까?')">삭제</a></td>
+				</c:if>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="../js/bootstrap.js"></script>
