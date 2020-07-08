@@ -350,7 +350,6 @@ public class BoardService {
 				params += ",";
 		}
 		String sql = String.format("DELETE FROM BOARD WHERE ID IN (%s)", params);
-		System.out.println(sql);
 		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
 		
 		try {

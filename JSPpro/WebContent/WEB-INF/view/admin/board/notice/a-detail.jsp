@@ -117,6 +117,9 @@
 				<c:if test="${n.writerId == userID }">
 					<td style="width: 70px;"><a href="/notice/cmtdelete-board?cmtid=${n.id }&id=${id}" class="btn btn-primary pull-right" onclick="return confirm('삭제하시겠습니까?')">삭제</a></td>
 				</c:if>
+				<c:if test="${n.writerId != userID }">
+					<td style="width: 70px;"></td>
+				</c:if>
 			</tr>
 			</c:forEach>
 		</tbody>
