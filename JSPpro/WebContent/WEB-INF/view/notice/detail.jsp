@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +87,7 @@
 					</tr>
 					<tr>
 						<td>글 내용</td>
-						<td colspan="2" style="min-height: 200px; text-align: left;">${n.content }</td>
+						<td colspan="2" style="min-height: 200px; text-align: left;">${fn:replace(n.content, replaceChar, "<br/>") }</td>
 					</tr>
 				</tbody>
 			</table>
@@ -135,6 +136,7 @@
 				<c:if test="${n.writerId != userID }">
 					<td style="width: 70px;"></td>
 				</c:if>
+				<td>${n}</td>
 			</tr>
 			</c:forEach>
 		</tbody>
