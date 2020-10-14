@@ -39,6 +39,15 @@
 		</div>
 	</nav>
 	<div class="container">
+		<div class="jumbotron">
+			<div class="container">
+				<h1>웹 사이트 소개</h1>
+				<p>이 웹 사이트는 JSP를 이용한 게시판기능과 회원기능을 사용한 웹사이트 입니다. 디자인은 부트스트랩을 이용했습니다.</p>
+				<a class="btn btn-primary btn-pull" href="https://github.com/BJwebgit/JSP-webBoard" role="button">자세히 알아보기</a>
+			</div>
+		</div>
+	</div>
+	<div class="container">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
