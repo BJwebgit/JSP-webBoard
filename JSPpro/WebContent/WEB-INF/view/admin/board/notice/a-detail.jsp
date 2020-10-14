@@ -71,7 +71,7 @@
 					</tr>
 					<tr>
 						<td>글 내용</td>
-						<td colspan="2" style="min-height: 200px; text-align: left;">${fn:replace(n.content, replaceChar, "<br/>") }</td>
+						<td colspan="2" style="min-height: 200px; text-align: left;">${fn:replace(fn:replace(fn:replace(fn:replace(n.content, " ", "&nbsp;"), "<", "&lt;"), ">", "&gt;"), replaceChar, "<br/>") }</td>
 					</tr>
 				</tbody>
 			</table>
