@@ -18,9 +18,9 @@ public class BoardService {
 		
 		String sql = "SELECT * FROM (" + 
 				"    SELECT ROWNUM NUM, N.* " + 
-				"    FROM (SELECT * FROM BOARD WHERE "+field+" LIKE ? ORDER BY REGDATE DESC) N" + 
+				"    FROM (SELECT * FROM BOARD WHERE "+field+" LIKE ? AND PUB=1 ORDER BY REGDATE DESC) N" + 
 				")" + 
-				"WHERE PUB=1 AND NUM BETWEEN ? AND ?";	
+				"WHERE NUM BETWEEN ? AND ?";	
 		
 		
 		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
@@ -324,11 +324,14 @@ public class BoardService {
 			Connection con = DriverManager.getConnection(url,"newlec","snrntka12");
 			Statement stOpen = con.createStatement();
 			result += stOpen.executeUpdate(sqlOpen);
-			Statement stClose = con.createStatement();
-			result += stClose.executeUpdate(sqlClose);
+			if(cidsCSV.length() != 0) {
+				Statement stClose = con.createStatement();
+				result += stClose.executeUpdate(sqlClose);
+				stClose.close();
+			}
 			
 			stOpen.close();
-			stClose.close();
+			
 			con.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
